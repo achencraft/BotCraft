@@ -1,10 +1,10 @@
 import os
+from tokenize import Token
 import discord
 import structlog
 from os.path import join, dirname
 from dotenv import load_dotenv 
 from discord.ext import commands
-
 
 log = structlog.get_logger()
 dotenv_path = join(dirname(__file__), '.env')
@@ -17,8 +17,16 @@ BOT_PREFIX = os.getenv('BOT_PREFIX', 'BotCraft ')
 BOT_NAME = os.getenv('BOT_NAME','BotCraft')
 
 
-intents = discord.Intents.all()
-bot = commands.Bot(command_prefix=BOT_PREFIX,  case_insensitive=True, intents=intents)
+intents = discord.Intents()
+intents.members=True
+bot = commands.Bot(command_prefix=BOT_PREFIX,  case_insensitive=True,intents=intents)
+
+@bot.event
+async def on_member_join(mbr):
+    print(bot.guilds)
+    role=discord.utils.get(mbr.guild.roles, name=os.getenv('BOT_VISITEUR_ROLE'))
+    await mbr.add_roles(role)
+
 
 
 @bot.event
@@ -59,5 +67,5 @@ if __name__ == "__main__":
     for extension in EXTENSIONS:
         bot.load_extension(extension)
 '''
-bot.run(TOKEN, bot=True, reconnect=True)
 
+bot.run(TOKEN, bot=True, reconnect=True)
