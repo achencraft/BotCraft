@@ -61,7 +61,6 @@ if __name__ == "__main__":
         'extensions.next',
         'extensions.stoplist',
         'extensions.utils',
-        'extensions.luxembourg'
     ]
 
     for extension in EXTENSIONS:
