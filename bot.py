@@ -33,7 +33,7 @@ async def on_member_join(mbr):
 async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
     await bot_log_message(f"{BOT_NAME} a démarré.")
-    action = discord.Game("Je cherche du diamant")
+    action = discord.Game("Je cherche des Bugs")
     await bot.change_presence(status=discord.Status.online, activity=action)
 
 
